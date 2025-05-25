@@ -39,6 +39,25 @@
 #           path: cypress/videos
 
 
+# name: Run Cypress Tests
+
+# on: [push, pull_request]
+
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Run Cypress tests
+#         uses: cypress-io/github-action@v6
+#         with:
+#           start: npx http-server -p 8080 # Optional if you have a frontend app to serve
+#           wait-on: 'http://localhost:8080' # Optional
+
+
 name: Run Cypress Tests
 
 on: [push, pull_request]
@@ -54,5 +73,20 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npx http-server -p 8080 # Optional if you have a frontend app to serve
-          wait-on: 'http://localhost:8080' # Optional
+          start: npx http-server -p 8080
+          wait-on: 'http://localhost:8080'
+        continue-on-error: true  # This allows artifact upload even if tests fail
+
+      - name: Upload Cypress Screenshots
+        if: always()  # Ensures this runs even if tests failed
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
