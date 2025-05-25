@@ -1,6 +1,6 @@
 describe('Example Test', () => {
-  it('Visits Cypress.io', () => {
-    cy.visit('https://www.cypress.io')
+  it('Visit portal', () => {
+    cy.visit('https://www.flipkart.com')
    // cy.contains('Test').should('be.visible')
   })
 })
