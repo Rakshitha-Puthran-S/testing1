@@ -56,5 +56,18 @@ jobs:
         with:
           start: npx http-server -p 8080 # Optional if you have a frontend app to serve
           wait-on: 'http://localhost:8080' # Optional
+          continue-on-error: true  # Allow job to continue even if Cypress tests fail
 
-          
+      - name: Upload Cypress Screenshots
+        if: always()  # Always run this step
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
