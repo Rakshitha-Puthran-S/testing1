@@ -1,3 +1,44 @@
+# name: Run Cypress Tests
+
+# on: [push, pull_request]
+
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Verify Cypress installation
+#         run: npx cypress install
+
+#       - name: Run Cypress tests
+#         run: npx cypress run
+
+#       - name: Upload test screenshots
+#         if: always()
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: cypress-screenshots
+#           path: cypress/screenshots
+
+#       - name: Upload test videos
+#         if: always()
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: cypress-videos
+#           path: cypress/videos
+
+
 name: Run Cypress Tests
 
 on: [push, pull_request]
@@ -13,21 +54,6 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npx http-server -p 8080
-          wait-on: 'http://localhost:8080'
-        continue-on-error: true
-
-      - name: Upload Cypress Screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-
-      - name: Upload Cypress Videos
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-videos
-          path: cypress/videos
-✅
+          start: npx http-server -p 8080 # Optional if you have a frontend app to serve
+          wait-on: 'http://localhost:8080' # Optional
+         
